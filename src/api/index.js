@@ -1,7 +1,7 @@
 const axios = require('axios');
 const instance = axios.create(
     {
-        baseURL: "http://192.168.0.25:8081/",
+        baseURL: "https://smart-busy-chess.glitch.me/",
         withCredentials: false,
         headers: {
             'Access-Control-Allow-Origin' : '*',
