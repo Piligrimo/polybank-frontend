@@ -13,13 +13,15 @@ import SignUp from './components/SignUp.vue'
 import LogIn from './components/LogIn.vue'
 import MainPage from './components/MainPage.vue'
 import TransactionPage from './components/TransactionPage.vue'
+import History from './components/History.vue'
 import { api } from './api';
 
 const screenEnum = {
   LOGIN: 'LogIn',
   SIGN_UP: 'SignUp',
   TRANSACTION: 'TransactionPage',
-  MAIN: 'MainPage'
+  MAIN: 'MainPage',
+  HISTORY: 'History',
 }
 
 export default {
@@ -28,7 +30,8 @@ export default {
     SignUp,
     LogIn,
     MainPage,
-    TransactionPage
+    TransactionPage,
+    History
   },
   data() {
     return {

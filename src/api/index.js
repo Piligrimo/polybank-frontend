@@ -1,7 +1,8 @@
 const axios = require('axios');
+const isLocal = false
 const instance = axios.create(
     {
-        baseURL: "https://smart-busy-chess.glitch.me/",
+        baseURL: isLocal ? "http://localhost:8081/" : "https://smart-busy-chess.glitch.me/",
         withCredentials: false,
         headers: {
             'Access-Control-Allow-Origin' : '*',
@@ -36,12 +37,21 @@ export const api = {
         localStorage.setItem('token', res.data.token)
         return res
     },
-    async transite({recieverId, sum, currency}) {
+    async transite({recieverId, sum, currency, comment}) {
         try {
             const token = localStorage.getItem('token')
-            await instance.put('/transite', { recieverId, sum, currency},{headers: {token}})
+            await instance.put('/transite', { recieverId, sum, currency, comment},{headers: {token}})
         } catch (e) {
             console.error(e)
         }
-    }
+    },
+    async getHistory() {
+        try {
+            const token = localStorage.getItem('token')
+            const { data } = await instance.get('/history', {headers: {token}})
+            return data
+        } catch (e) {
+            console.error(e)
+        }
+    },
 }

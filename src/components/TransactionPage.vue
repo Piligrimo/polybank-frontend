@@ -28,6 +28,9 @@
           {{ currency.label }}
         </option>
       </select>
+
+      <label for="comment">Коммент</label>
+      <textarea v-model="comment" name="comment" id="comment" rows="5"/>
       <p class="error-message"> {{ errorMessage }} </p>
       <button  @click="transite">Перевести</button>
       <p class="link"  @click="$emit('change-screen', 'MAIN')">Назад</p>
@@ -47,7 +50,8 @@ export default {
       sum: 0,
       receiver: null,
       selectedCurrency: null,
-      errorMessage: ''
+      errorMessage: '',
+      comment:''
     }
   },
   async created() {
@@ -61,7 +65,7 @@ export default {
       return [
         {label: 'Макскоины', name: 'maxcoins'},
         {label: 'Ниссомани', name: 'nissomani'},
-        {label: 'Письки', name: 'piski'},
+        {label: 'Дички', name: 'piski'},
         {label: 'Илюшекели', name: 'ilushekels'},
         {label: 'Рудии', name: 'rudies'},
       ]
@@ -88,7 +92,8 @@ export default {
       await api.transite({ 
         recieverId: this.receiver, 
         sum: Math.min(this.sum, this.maxAmount),
-        currency: this.selectedCurrency
+        currency: this.selectedCurrency,
+        comment: this.comment
       })
       this.$emit('change-screen', 'MAIN')
       this.$emit('auth')
@@ -105,6 +110,7 @@ label {
   text-align: left;
 }
 
+textarea,
 select,
 input
  {
