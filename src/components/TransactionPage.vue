@@ -28,8 +28,8 @@
           {{ currency.label }}
         </option>
       </select>
+      <p class="error-message"> {{ errorMessage }} </p>
       <button  @click="transite">Перевести</button>
-      
       <p class="link"  @click="$emit('change-screen', 'MAIN')">Назад</p>
   </div>
 </template>
@@ -46,7 +46,8 @@ export default {
       users: [],
       sum: 0,
       receiver: null,
-      selectedCurrency: null
+      selectedCurrency: null,
+      errorMessage: ''
     }
   },
   async created() {
@@ -72,6 +73,18 @@ export default {
   },
   methods: {
     async transite() {
+      if (!this.receiver) {
+        this.errorMessage = 'Выбери получателя'
+        return
+      }
+      if (this.sum <= 0) {
+        this.errorMessage = 'Выбери положительную сумму'
+        return
+      }
+      if (!this.selectedCurrency) {
+        this.errorMessage = 'Выбери валюту'
+        return
+      }
       await api.transite({ 
         recieverId: this.receiver, 
         sum: Math.min(this.sum, this.maxAmount),
