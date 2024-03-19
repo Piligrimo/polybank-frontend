@@ -30,8 +30,7 @@ export default {
         this.$emit('auth')
       } catch (error) {
         console.error(error)
-       // this.errorMessage = error.response?.data?.message
-        this.errorMessage = JSON.stringify(error)
+        this.errorMessage = error.response?.data?.message
       }
     }
   }
