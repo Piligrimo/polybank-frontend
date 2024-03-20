@@ -1,29 +1,35 @@
 <template>
   <div class="main-page">
-    <h2>{{ user.login }}</h2>
-    <table>
+    <h2>{{ user ? user.login : 'Моя поликрипта'}}</h2>
+    <table v-if="!loading">
       <tr><td align="left">Макскоины</td><td align="right">{{ user.maxcoins }}</td></tr>
       <tr><td align="left">Ниссомони</td><td align="right">{{ user.nissomani }}</td></tr>
       <tr><td align="left">Дички</td><td align="right">{{ user.piski }}</td></tr>
       <tr><td align="left">Илюшекели</td><td align="right">{{ user.ilushekels }}</td></tr>
       <tr><td align="left">Рудии</td><td align="right">{{ user.rudies }}</td></tr>
     </table>
+    <p v-else>Загрузка...</p>
     <br>
-    <button  @click="$emit('change-screen', 'TRANSACTION')">Перевести</button>
-    <p class="link" @click="$emit('change-screen', 'HISTORY')">История</p>
+    <router-link to="/transaction">
+      <button>Перевести</button>
+    </router-link>
+    <router-link class="link" to="/history">История</router-link>
     <p class="link" @click="logOf">Выйти</p>
   </div>
 </template>
 <script>
-//import {api} from '../api'
+import { mapState } from 'vuex'
 
 export default {
   name: 'MainPage',
-  props: {
-    user: Object
-  },
   data() {
 
+  },
+  computed: {
+    ...mapState({
+      user: ({user})=> user,
+      loading: ({loading}) => loading
+    })
   },
   methods: {
     logOf() {

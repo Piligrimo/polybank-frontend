@@ -1,8 +1,8 @@
 <template>
   <div class="history">
     <h2>История</h2>
-
-    <template v-if="history.length">
+    <p v-if="loading">Загрузка...</p>
+    <template v-else-if="history.length">
       <div v-for="item in history" :key="item.id" class="history-item">
         <div class="history-item__header">
           <h3 :style="{color: isPositive(item) ? 'lime' : 'grey' }"> 
@@ -19,11 +19,12 @@
     </template>
     <p v-else>У тебя пока не быдо переводов</p>
 
-    <p class="link" @click="$emit('change-screen', 'MAIN')">Назад</p>
+    <router-link class="link" to="/">Назад</router-link>
   </div>
 </template>
 <script>
 import { api } from '@/api';
+import { mapState, mapActions} from 'vuex'
 
 const currencyDictionary = {
   maxcoins: ['Макскоин','Макскоинов','Макскоинов'],
@@ -43,18 +44,22 @@ const pluralize = (amount, [one, two, five]) => {
 
 export default {
   name: 'HistoryPage',
-  props: {
-    user: Object
-  },
   data() {
     return{
       history: [],
     }
   },
   async created() {
-    this.history = await api.getHistory()
+    this.history = await this.callRequest(api.getHistory)
+  },
+  computed: {
+    ...mapState({
+      user: ({user})=> user,
+      loading: ({loading}) => loading
+    })
   },
   methods: {
+    ...mapActions( {callRequest:'CALL_REQUEST'}),
     isPositive({reciever}) {
       return reciever === this.user?.login
     },
@@ -69,6 +74,7 @@ export default {
 <style scoped>
 .history-item {
   border-radius: 10px;
+  background-color: #fff;
   padding: 20px;
   margin: auto;
   margin-bottom: 24px;
@@ -79,13 +85,15 @@ export default {
   -moz-box-shadow: 5px 5px 21px -1px rgba(0,0,0,0.5);
 }
 .comment {
-  color: grey;
+  color: #525252;
   background-color: #e7e7e7;
   border-radius: 8px;
-  padding: 8px 16px;
+  border: 1px solid #a6a6a6;
+  padding: 12px 18px;
   margin-top: 16px;
 }
 h3 {
+  color: #202020;
   margin: 0;
   width: min-content;
   white-space: nowrap

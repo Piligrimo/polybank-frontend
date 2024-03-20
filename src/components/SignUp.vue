@@ -5,7 +5,7 @@
     <input type="password" v-model="confirmPassword" placeholder="Повтори пароль">
     <p class="error-message"> {{ errorMessage }} </p>
     <button @click="signUp">Зарегистрироваться</button>
-    <p class="link" @click="$emit('change-screen', 'LOGIN')">Войти</p>
+    <router-link class="link" to="/login">Войти</router-link>
   </div>
 </template>
 

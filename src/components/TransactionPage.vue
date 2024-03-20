@@ -1,6 +1,7 @@
 <template>
   <div class="transaction">
     <h2>Перевод</h2>
+    <template v-if="user">
       <label for="user">Кому</label>
       <select v-model="receiver" id="user">
         <option 
@@ -32,18 +33,17 @@
       <label for="comment">Коммент</label>
       <textarea v-model="comment" name="comment" id="comment" rows="5"/>
       <p class="error-message"> {{ errorMessage }} </p>
-      <button  @click="transite">Перевести</button>
-      <p class="link"  @click="$emit('change-screen', 'MAIN')">Назад</p>
+    </template>
+    <button  @click="transite">Перевести</button>
+    <router-link class="link" to="/">Назад</router-link>
   </div>
 </template>
 <script>
 import { api } from '@/api'
+import { mapState } from 'vuex'
 
 export default {
   name: 'MainPage',
-  props: {
-    user: Object
-  },
   data() {
     return {
       users: [],
@@ -58,8 +58,10 @@ export default {
     this.users = await api.users()
   },
   computed: {
+    ...mapState({user: ({ user } ) => user}),
     otherUsers() {
-      return this.users.filter(({id})=> id !== this.user.id)
+      console.log(this.$store.state.user, 'otherUsers');
+      return this.users.filter(({id})=> id !== this.user?.id)
     },
     currencies() {
       return [
@@ -71,6 +73,7 @@ export default {
       ]
     },
     maxAmount() {
+      console.log(this.selectedCurrency);
       if (!this.selectedCurrency) return null
       return this.user[this.selectedCurrency]
     }
@@ -95,8 +98,7 @@ export default {
         currency: this.selectedCurrency,
         comment: this.comment
       })
-      this.$emit('change-screen', 'MAIN')
-      this.$emit('auth')
+      this.$router.push('/')
     }
   }
 
@@ -126,7 +128,7 @@ table {
 }
 
 .hint {
-  color: grey;
+  color: rgb(225, 225, 225);
   margin-top: 0;
   font-size: 11px;
   width: 150px;

@@ -4,7 +4,7 @@
     <input type="password" v-model="password" placeholder="Пароль">
     <p class="error-message"> {{ errorMessage }} </p>
     <button @click="signIn">Войти</button>
-    <p class="link" @click="$emit('change-screen', 'SIGN_UP')">У меня нет аккаунта</p>
+    <router-link class="link" to="/signup">У меня нет аккаунта</router-link>
   </div>
 </template>
 
@@ -27,7 +27,7 @@ export default {
           login: this.login,
           password: this.password,
         })
-        this.$emit('auth')
+        this.$router.push('/')
       } catch (error) {
         console.error(error)
         this.errorMessage = error.response?.data?.message
