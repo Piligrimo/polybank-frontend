@@ -22,11 +22,8 @@ export const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   let user = store.state.user
-  console.log(user, 1, to.path);
   if (!user) {
     user = await store.dispatch('CALL_REQUEST', () => store.dispatch('GET_USER'))
-    console.log(user);
-
   }
 
   

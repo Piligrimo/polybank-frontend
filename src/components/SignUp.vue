@@ -33,7 +33,7 @@ export default {
           password: this.password,
           confirmPassword: this.confirmPassword
         })
-        this.$emit('auth')
+        this.$router.push('/')
       } catch (error) {
         console.error(error)
         this.errorMessage = error.response.data.message

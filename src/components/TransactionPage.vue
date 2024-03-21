@@ -60,7 +60,6 @@ export default {
   computed: {
     ...mapState({user: ({ user } ) => user}),
     otherUsers() {
-      console.log(this.$store.state.user, 'otherUsers');
       return this.users.filter(({id})=> id !== this.user?.id)
     },
     currencies() {
@@ -73,7 +72,6 @@ export default {
       ]
     },
     maxAmount() {
-      console.log(this.selectedCurrency);
       if (!this.selectedCurrency) return null
       return this.user[this.selectedCurrency]
     }

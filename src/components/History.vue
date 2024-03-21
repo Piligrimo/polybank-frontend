@@ -8,9 +8,14 @@
           <h3 :style="{color: isPositive(item) ? 'lime' : 'grey' }"> 
             {{ isPositive(item) ? '+' : '-' }}{{ formatSum(item) }} 
           </h3>
-          <p class="person">
-            {{ isPositive(item) ? 'от' : 'для' }} {{ isPositive(item) ? item.giver : item.reciever }}
-          </p>
+          <div>
+            <p class="person">
+              {{ formatDate(item) }} 
+            </p>
+            <p class="person">
+              {{ isPositive(item) ? 'от' : 'для' }} {{ isPositive(item) ? item.giver : item.reciever }}
+            </p>
+          </div>
         </div>
         <div v-if="item.comment" class="comment">
           {{ item.comment }}
@@ -35,12 +40,13 @@ const currencyDictionary = {
 }
 
 const pluralize = (amount, [one, two, five]) => {
-  if (amount >=5 && amount <=20) return `${amount}${five}`
+  if (amount >=5 && amount <=20) return `${amount} ${five}`
   const div = amount % 10
   if (div === 1) return `${amount} ${one}`
   if (div >= 2 && div <= 4) return `${amount} ${two}`
   return `${amount} ${five}`
 }
+
 
 export default {
   name: 'HistoryPage',
@@ -50,7 +56,8 @@ export default {
     }
   },
   async created() {
-    this.history = await this.callRequest(api.getHistory)
+    const data = await this.callRequest(api.getHistory)
+    this.history = data.reverse()
   },
   computed: {
     ...mapState({
@@ -65,6 +72,9 @@ export default {
     },
     formatSum ({currency, sum}) {
       return pluralize(sum, currencyDictionary[currency])
+    },
+    formatDate ({date}) {
+      return new Date(date).toLocaleString()
     }
   }
 }
@@ -106,5 +116,6 @@ h3 {
   font-size: 12px;
   margin: 0;
   color: gray;
+  text-align: right;
 }
 </style>

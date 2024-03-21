@@ -2,11 +2,11 @@
   <div class="main-page">
     <h2>{{ user ? user.login : 'Моя поликрипта'}}</h2>
     <table v-if="!loading">
-      <tr><td align="left">Макскоины</td><td align="right">{{ user.maxcoins }}</td></tr>
-      <tr><td align="left">Ниссомони</td><td align="right">{{ user.nissomani }}</td></tr>
-      <tr><td align="left">Дички</td><td align="right">{{ user.piski }}</td></tr>
-      <tr><td align="left">Илюшекели</td><td align="right">{{ user.ilushekels }}</td></tr>
-      <tr><td align="left">Рудии</td><td align="right">{{ user.rudies }}</td></tr>
+      <tr><td align="left">Макскоины</td><td align="right">{{ user && user.maxcoins }}</td></tr>
+      <tr><td align="left">Ниссомони</td><td align="right">{{ user && user.nissomani }}</td></tr>
+      <tr><td align="left">Дички</td><td align="right">{{ user && user.piski }}</td></tr>
+      <tr><td align="left">Илюшекели</td><td align="right">{{ user && user.ilushekels }}</td></tr>
+      <tr><td align="left">Рудии</td><td align="right">{{ user && user.rudies }}</td></tr>
     </table>
     <p v-else>Загрузка...</p>
     <br>
@@ -18,12 +18,12 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'MainPage',
   data() {
-
+    return{}
   },
   computed: {
     ...mapState({
@@ -31,10 +31,22 @@ export default {
       loading: ({loading}) => loading
     })
   },
+  created() {
+    console.log('MainPage created');
+    this.updateUser()
+  },
   methods: {
-    logOf() {
+    ...mapActions( { 
+      callRequest:'CALL_REQUEST',
+      getUser: 'GET_USER'
+    }),
+    async updateUser() {
+      await this.callRequest(this.getUser)
+    },
+    async logOf() {
       localStorage.removeItem('token')
-      this.$emit('auth')
+      await this.updateUser()
+      this.$router.push('/login')
     }
   }
 

@@ -1,19 +1,34 @@
 <template>
   <h1>ПОЛИБАНК</h1>
-  <router-view  @auth="getCurrentUser"/>
+  <router-view/>
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 export default {
   name: 'App',
+  methods: {
+    ...mapActions( { 
+      callRequest:'CALL_REQUEST',
+      getUser: 'GET_USER'
+    }),
+  }
 }
 </script>
 
 <style>
+img {
+  width: 400px;
+  image-rendering: -o-crisp-edges;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
 body {
   background: rgb(2,0,36);
   background: linear-gradient(187deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(169,0,255,1) 100%);
-  height: 100vh;
+  min-height: 100vh;
 }
 
 button {
