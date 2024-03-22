@@ -14,9 +14,12 @@ import rudolf1 from "./rudolf1.png";
 import rudolf2 from "./rudolf2.png";
 import rudolf3 from "./rudolf3.png";
 import rudolf4 from "./rudolf4.png";
+import rudolf5 from "./rudolf5.png";
 import sonya1 from "./sonya1.png";
 import sonya2 from "./sonya2.png";
 import trash1 from "./trash1.png";
+import trash2 from "./trash2.png";
+import trash3 from "./trash3.png";
 import vladichka from "./vladichka.png";
 import vladichka2 from "./vladichka2.png";
 
@@ -37,9 +40,12 @@ export default {
     rudolf2,
     rudolf3,
     rudolf4,
+    rudolf5,
     sonya1,
     sonya2,
     trash1,
+    trash2,
+    trash3,
     vladichka,
-    vladichka2
+    vladichka2,
 }
