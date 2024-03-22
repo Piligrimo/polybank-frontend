@@ -1,11 +1,12 @@
 import { createWebHashHistory, createRouter } from 'vue-router'
 import { store } from '@/store'
 
-import MainPage from './components/MainPage.vue'
-import SignUp from './components/SignUp.vue'
-import LogIn from './components/LogIn.vue'
-import TransactionPage from './components/TransactionPage.vue'
-import History from './components/History.vue'
+import MainPage from './pages/MainPage.vue'
+import SignUp from './pages/SignUp.vue'
+import LogIn from './pages/LogIn.vue'
+import TransactionPage from './pages/TransactionPage.vue'
+import History from './pages/History.vue'
+import CardsCollection from './pages/CardsCollection.vue'
 
 const routes = [
   { path: '/', component: MainPage, meta: {shouldBeAuthed: true} },
@@ -13,6 +14,7 @@ const routes = [
   { path: '/login', component: LogIn, meta: {shouldBeAuthed: false} },
   { path: '/transaction', component: TransactionPage, meta: {shouldBeAuthed: true} },
   { path: '/history', component: History, meta: {shouldBeAuthed: true} },
+  { path: '/cards', component: CardsCollection, meta: {shouldBeAuthed: true} },
 ]
 
 export const router = createRouter({

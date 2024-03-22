@@ -17,14 +17,6 @@ export default {
 </script>
 
 <style>
-img {
-  width: 400px;
-  image-rendering: -o-crisp-edges;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
-  image-rendering: pixelated;
-}
-
 body {
   background: rgb(2,0,36);
   background: linear-gradient(187deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(169,0,255,1) 100%);

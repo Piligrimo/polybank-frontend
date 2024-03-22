@@ -54,4 +54,13 @@ export const api = {
             console.error(e)
         }
     },
+    async getCards() {
+        try {
+            const token = localStorage.getItem('token')
+            const { data } = await instance.get('/cards', {headers: {token}})
+            return data
+        } catch (e) {
+            console.error(e)
+        }
+    },
 }
