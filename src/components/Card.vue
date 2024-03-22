@@ -1,7 +1,8 @@
 <template>
-  <div class="card">
+  <div class="card" :class="{pink: rarity === 'legendary'}">
     <img :src="getPath(picture)">
     <div class="circle" :class="rarity">
+      <div class="blick"></div>
       <div v-if="rarity === 'legendary'" class="circle shadow"></div>
     </div>
     <h3>{{ name }}</h3>
@@ -49,6 +50,12 @@ export default {
   -webkit-box-shadow: 5px 5px 21px -1px rgba(0,0,0,0.5);
   -moz-box-shadow: 5px 5px 21px -1px rgba(0,0,0,0.5);
 }
+
+.pink {
+  background-color: #f6d8ff;
+  color: #2c0126;
+}
+
 img {
   width: 100%;
   image-rendering: -o-crisp-edges;
@@ -74,6 +81,9 @@ h3 {
   height: 50px;
   border-radius: 50%;
   background-color: lawngreen;
+  box-shadow: 5px 5px 21px -1px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 5px 5px 21px -1px rgba(0,0,0,0.5);
+  -moz-box-shadow: 5px 5px 21px -1px rgba(0,0,0,0.5);
 }
 
 .trash {
@@ -107,5 +117,19 @@ h3 {
   background-blend-mode: multiply;
   top:0;
   left: 0;
+  box-shadow: none;
 }
+
+.blick {
+  background: rgb(255,255,255);
+  background: linear-gradient(180deg, #ffffffcc 0%, #ffffff00 100%);
+  position: absolute;
+  border-radius: 50%;
+  z-index: 4;
+  top:5px;
+  left: 10px;
+  width: 15px;
+  height: 10px;
+}
+
 </style>
