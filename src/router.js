@@ -14,7 +14,7 @@ const routes = [
   { path: '/login', component: LogIn, meta: {shouldBeAuthed: false} },
   { path: '/transaction', component: TransactionPage, meta: {shouldBeAuthed: true} },
   { path: '/history', component: History, meta: {shouldBeAuthed: true} },
-  { path: '/cards', component: CardsCollection, meta: {shouldBeAuthed: true} },
+  { path: '/cards', component: CardsCollection },
 ]
 
 export const router = createRouter({
@@ -23,6 +23,12 @@ export const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
+  if(to.meta.shouldBeAuthed === undefined) {
+    next()
+    return
+  }
+
+
   let user = store.state.user
   if (!user) {
     user = await store.dispatch('CALL_REQUEST', () => store.dispatch('GET_USER'))
