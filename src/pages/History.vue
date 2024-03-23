@@ -1,8 +1,8 @@
 <template>
-  <div class="history">
+  <div class="history _centered">
     <h2>История</h2>
     <p v-if="loading">Загрузка...</p>
-    <template v-else-if="history.length">
+    <template v-else-if="history && history.length">
       <div v-for="item in history" :key="item.id" class="history-item">
         <div class="history-item__header">
           <h3 :style="{color: isPositive(item) ? 'lime' : 'grey' }"> 
@@ -29,6 +29,7 @@
 </template>
 <script>
 import { api } from '@/api';
+import { pluralize } from '@/utils';
 import { mapState, mapActions} from 'vuex'
 
 const currencyDictionary = {
@@ -38,15 +39,6 @@ const currencyDictionary = {
   ilushekels: ['Илюшекель','Илюшекеля','Илюшекелей'],
   rudies: ['Рудия','Рудии','Рудий'],
 }
-
-const pluralize = (amount, [one, two, five]) => {
-  if (amount >=5 && amount <=20) return `${amount} ${five}`
-  const div = amount % 10
-  if (div === 1) return `${amount} ${one}`
-  if (div >= 2 && div <= 4) return `${amount} ${two}`
-  return `${amount} ${five}`
-}
-
 
 export default {
   name: 'HistoryPage',
@@ -88,7 +80,7 @@ export default {
   padding: 20px;
   margin: auto;
   margin-bottom: 24px;
-  max-width: 300px;
+  width: 100%;
   text-align: left;
   box-shadow: 5px 5px 21px -1px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 5px 5px 21px -1px rgba(0,0,0,0.5);

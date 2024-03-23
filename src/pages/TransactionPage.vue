@@ -1,5 +1,5 @@
 <template>
-  <div class="transaction">
+  <div class="transaction _centered">
     <h2>Перевод</h2>
     <template v-if="user">
       <label for="user">Кому</label>

@@ -4,7 +4,10 @@
     <table v-if="!loading">
       <tr><td align="left">Макскоины</td><td align="right">{{ user && user.maxcoins }}</td></tr>
       <tr><td align="left">Ниссомони</td><td align="right">{{ user && user.nissomani }}</td></tr>
-      <tr><td align="left">Дички</td><td align="right">{{ user && user.piski }}</td></tr>
+      <tr>
+        <td align="left">Дички  <router-link to="/cards">🃏</router-link> </td>
+        <td align="right">{{ user && user.piski }}</td>
+      </tr>
       <tr><td align="left">Илюшекели</td><td align="right">{{ user && user.ilushekels }}</td></tr>
       <tr><td align="left">Рудии</td><td align="right">{{ user && user.rudies }}</td></tr>
     </table>

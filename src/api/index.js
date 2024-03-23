@@ -63,4 +63,22 @@ export const api = {
             console.error(e)
         }
     },
+    async openPack() {
+        try {
+            const token = localStorage.getItem('token')
+            const { data } = await instance.post('/open-pack', {}, {headers: {token}})
+            return data
+        } catch (e) {
+            console.error(e)
+        }
+    },
+    async getCollection() {
+        try {
+            const token = localStorage.getItem('token')
+            const { data } = await instance.get('/collection', {headers: {token}})
+            return data
+        } catch (e) {
+            console.error(e)
+        }
+    }
 }

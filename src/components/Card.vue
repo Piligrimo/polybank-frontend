@@ -1,5 +1,5 @@
 <template>
-  <div class="card" :class="{pink: rarity === 'legendary'}">
+  <div class="card" :class="{pink: rarity === 'legendary', _smol: size === 's' }">
     <img :src="getPath(picture)">
     <div class="circle" :class="rarity">
       <div class="blick"></div>
@@ -18,11 +18,12 @@ export default {
   },
   props: {
     name: String,
+    size: String,
     rarity: String,
     picture: String,
     description: String,
-    is_unique: Boolean,
-    is_action: Boolean
+    is_unique: Number,
+    is_action: Number
   },
   methods: {
     getPath(pic) {
@@ -43,12 +44,36 @@ export default {
   background-color: #fff;
   color: #333333;
   padding: 30px;
-  margin: auto;
   margin-bottom: 24px;
-  max-width: 300px;
+  width: 300px;
+  height: 550px;
+  text-align: center;
   box-shadow: 5px 5px 21px -1px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 5px 5px 21px -1px rgba(0,0,0,0.5);
   -moz-box-shadow: 5px 5px 21px -1px rgba(0,0,0,0.5);
+}
+
+.card._smol {
+  max-width: 100px;
+  width: 100%;
+  border-radius: 3px;
+  padding: 10px;
+  height: 200px;
+}
+
+.card._smol h3{
+  font-size: 6px;
+}
+
+.card._smol .description{
+  font-size: 6px;
+}
+
+.card._smol .circle{
+  width: 17px;
+  height: 17px;
+  top: -15px;
+  left: -5px;
 }
 
 .pink {
@@ -115,8 +140,8 @@ h3 {
   background: transparent;
   background: radial-gradient(circle, rgba(255,156,156,0) 0%, rgba(170, 82, 247, 0.6) 100%);
   background-blend-mode: multiply;
-  top:0;
-  left: 0;
+  top:0 !important;
+  left: 0 !important;
   box-shadow: none;
 }
 
@@ -127,9 +152,9 @@ h3 {
   border-radius: 50%;
   z-index: 4;
   top:5px;
-  left: 10px;
-  width: 15px;
-  height: 10px;
+  left: 20%;
+  width: 30%;
+  height: 20%;
 }
 
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="sig-nup">
+  <div class="login _centered">
     <input type="text" v-model="login" placeholder="Логин">
     <input type="password" v-model="password" placeholder="Пароль">
     <p class="error-message"> {{ errorMessage }} </p>

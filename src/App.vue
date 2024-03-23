@@ -17,10 +17,21 @@ export default {
 </script>
 
 <style>
+
+*{
+  box-sizing: border-box;
+}
 body {
   background: rgb(2,0,36);
   background: linear-gradient(187deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(169,0,255,1) 100%);
   min-height: 100vh;
+  max-width: 360px;
+  margin: auto;
+}
+
+h1,
+h2 {
+  text-align: center;
 }
 
 button {
@@ -33,9 +44,20 @@ button {
   font-size: 16px;
   font-weight: 500;
   text-decoration: none;
+  width: fit-content;
+}
+button:disabled {
+  background-color: #b6b6b6;
+  border: 2px solid rgb(75, 75, 75) ;
+  color: #6f6f6f;
 }
 a:-webkit-any-link {
   text-decoration: none;
+}
+._centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 textarea,
@@ -50,7 +72,6 @@ input {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #fdfdfd;
   margin-top: 60px;
 }
@@ -65,7 +86,10 @@ input {
   cursor: pointer;
   padding: 4px;
   display: block;
+  margin: auto;
+  width: fit-content;
 }
+
 .link:hover {
   opacity: 0.8;
 }
