@@ -14,7 +14,7 @@ const routes = [
   { path: '/login', component: LogIn, meta: {shouldBeAuthed: false} },
   { path: '/transaction', component: TransactionPage, meta: {shouldBeAuthed: true} },
   { path: '/history', component: History, meta: {shouldBeAuthed: true} },
-  { path: '/cards', component: CardsCollection },
+  { path: '/cards', component: CardsCollection, meta: {shouldBeAuthed: true}  },
 ]
 
 export const router = createRouter({
