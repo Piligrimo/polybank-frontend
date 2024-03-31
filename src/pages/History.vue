@@ -29,16 +29,8 @@
 </template>
 <script>
 import { api } from '@/api';
-import { pluralize } from '@/utils';
+import { pluralize, currencyDictionary } from '@/utils';
 import { mapState, mapActions} from 'vuex'
-
-const currencyDictionary = {
-  maxcoins: ['Макскоин','Макскоинов','Макскоинов'],
-  nissomani: ['Ниссомони','Ниссомони','Ниссомони'],
-  piski: ['Дичка','Дички','Дичек'],
-  ilushekels: ['Илюшекель','Илюшекеля','Илюшекелей'],
-  rudies: ['Рудия','Рудии','Рудий'],
-}
 
 export default {
   name: 'HistoryPage',

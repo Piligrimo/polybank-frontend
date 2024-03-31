@@ -80,5 +80,80 @@ export const api = {
         } catch (e) {
             console.error(e)
         }
+    },
+    async getLots() {
+        try {
+            const { data } = await instance.get('/lots')
+            return data
+        } catch (e) {
+            console.error(e)
+        }
+    },
+    async getLot(id) {
+        try {
+            const { data } = await instance.get('/lots/'+id)
+            return data
+        } catch (e) {
+            console.error(e)
+        }
+    },
+    async getOffersByLot(id) {
+        try {
+            const { data } = await instance.get('/offers/'+id)
+            return data
+        } catch (e) {
+            console.error(e)
+        }
+    },
+    async createOffer(payload) {
+        try {
+            const token = localStorage.getItem('token')
+            await instance.post('/offers', payload,  {headers: {token}})
+        } catch (e) {
+            console.error(e)
+        }
+    },
+    async getMyLots() {
+        try {
+            const token = localStorage.getItem('token')
+            const { data } = await instance.get('/my-lots', {headers: {token}})
+            return data
+        } catch (e) {
+            console.error(e)
+        }
+    },
+    async createLot(collectionItem) {
+        try {
+            const token = localStorage.getItem('token')
+            const { data } = await instance.post('/lots', {collectionItem},  {headers: {token}})
+            return data
+        } catch (e) {
+            console.error(e)
+        }
+    },
+    async cancelTrade(lotId) {
+        try {
+            const { data } = await instance.delete('/lots/'+lotId)
+            return data
+        } catch (e) {
+            console.error(e)
+        }
+    },
+    async cancelOffer(offerId) {
+        try {
+            const { data } = await instance.delete('/offers/'+offerId)
+            return data
+        } catch (e) {
+            console.error(e)
+        }
+    },
+    async acceptTrade(lot, offer) {
+        try {
+            const token = localStorage.getItem('token')
+            const { data } = await instance.post('/accept', {lot, offer},  {headers: {token}})
+            return data
+        } catch (e) {
+            console.error(e)
+        }
     }
 }

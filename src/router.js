@@ -7,6 +7,8 @@ import LogIn from './pages/LogIn.vue'
 import TransactionPage from './pages/TransactionPage.vue'
 import History from './pages/History.vue'
 import CardsCollection from './pages/CardsCollection.vue'
+import CardsTrading from './pages/CardsTrading.vue'
+import TradeOffer from './pages/TradeOffer.vue'
 
 const routes = [
   { path: '/', component: MainPage, meta: {shouldBeAuthed: true} },
@@ -15,6 +17,8 @@ const routes = [
   { path: '/transaction', component: TransactionPage, meta: {shouldBeAuthed: true} },
   { path: '/history', component: History, meta: {shouldBeAuthed: true} },
   { path: '/cards', component: CardsCollection, meta: {shouldBeAuthed: true}  },
+  { path: '/trading', component: CardsTrading,  meta: {shouldBeAuthed: true}  },
+  { path: '/trading/:id', component: TradeOffer,  meta: {shouldBeAuthed: true}  },
 ]
 
 export const router = createRouter({

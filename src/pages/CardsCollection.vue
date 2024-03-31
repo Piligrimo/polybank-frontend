@@ -2,15 +2,22 @@
   <div class="deck _centered">
     <h2>Твоя колода</h2>
     <button :disabled="!canBuy" @click="isUnpackingVisible = true">Открыть пачку (10 дичек)</button>
+    <br>
+    <router-link to="/trading">
+      <button>Обмен карточками</button>
+    </router-link>
+    <br>
     <h4>у тебя {{ formatedDichki }}</h4>
+    <h4 v-if="cards && cards.length">у тебя в коллекции {{ cards.length }} карт из {{ cardsTotal }}</h4>
     <router-link class="link" to="/">Назад</router-link>
     <br>
     <p v-if="loading">Загрузка...</p>
     <div class="card-grid" v-else-if="cards && cards.length">
-      <div class="card-container" v-for="item in cards" :key="item.card.id">
-        <div class="counter" v-if="item.number > 1">x{{ item.number }}</div>
+      <div class="card-container" v-for="item in cards" :key="item.id">
+        <div class="counter badge" v-if="item.number > 1">x{{ item.number }}</div>
+        <div class="in-trading badge" v-if="isInTrading(item.id)">на обмен</div>
         <card  
-          @click="chosenCard = item.card"
+          @click="chosenCard = item"
           v-bind="item.card"
           size="s"
         />
@@ -19,7 +26,8 @@
     <p v-else>У тебя пока нет карт</p>
 
     <div v-if="chosenCard" class="card-display" @click="chosenCard = null"> 
-      <card v-bind="chosenCard"/>
+      <card v-bind="chosenCard.card"/>
+      <button v-if="!isInTrading(chosenCard.id) && !user.is_trading" @click="trade">Выставить на обмен</button>
     </div>
 
     <unpacking v-if="isUnpackingVisible" @unpacked="handleUnpacking"/>
@@ -41,12 +49,15 @@ export default {
   data() {
     return{
       cards: [],
+      myLots: [],
+      cardsTotal: 0,
       chosenCard: null,
       isUnpackingVisible: false
     }
   },
   created() {
     this.updateCollection()
+    this.updateUser()
   },
   methods: {
     ...mapActions({ callRequest:'CALL_REQUEST', updateUser: 'GET_USER'}),
@@ -56,8 +67,21 @@ export default {
       this.updateUser()
     },
     async updateCollection () {
-      const res =  await this.callRequest(api.getCollection)
-      this.cards = res.reverse()
+       await this.callRequest(async () => {
+        const cards = await api.getCollection()
+        this.cards = cards.collection.reverse()
+        this.cardsTotal = cards.allCardsCount
+        this.myLots = await api.getMyLots()
+      })
+    },
+    async trade () {
+      await this.callRequest(async () => {
+        await api.createLot(this.chosenCard.id)
+        this.$router.push('/trading')
+      })
+    },
+    isInTrading(id){
+      return this.myLots.find(({collection_item_id}) => collection_item_id === id)
     }
   },
   computed: {
@@ -70,7 +94,7 @@ export default {
     },
     canBuy() {
       return this.user?.piski >= 10
-    }
+    },
   }
 }
 </script>
@@ -83,19 +107,35 @@ h3 {
   width: min-content;
   white-space: nowrap
 }
+h4 {
+  margin-top: 8px;
+  margin-bottom: 0;
+}
 .history-item__header {
   display: flex;
   justify-content: space-between;
 }
 .counter {
-  border-radius: 10px;
-  position: absolute;
+  background-color: #35a33a;
   top: -5px;
   left: -5px;
-  background-color: #35a33a;
   padding: 2px 10px;
+}
+
+.badge {
+  border-radius: 10px;
+  position: absolute;
   color: #fff;
   width: fit-content;
+}
+.in-trading {
+  background-color: #8333a3;
+  top: -5px;
+  right: -5px;
+  font-size: 10px;
+  line-height: 1;
+  padding: 8px 10px;
+
 }
 
 .card-container {
@@ -111,6 +151,7 @@ h3 {
 .card-display{
   position: fixed;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 10;

@@ -7,12 +7,13 @@
     </div>
     <h3>{{ name }}</h3>
     <p class="description" v-html="description"/>
+    <slot />
   </div>
 </template>
 <script>
 import picDictionary from '@/assets/card pics'
 export default {
-  name: 'MainPage',
+  name: 'TheCard',
   data() {
     return{}
   },
