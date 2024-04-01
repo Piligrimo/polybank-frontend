@@ -1,3 +1,4 @@
+import action1 from "./action1.png";
 import alisa1 from "./alisa1.png";
 import gayane1 from "./gayane1.png";
 import gayane2 from "./gayane2.png";
@@ -51,6 +52,7 @@ import vladichka4 from "./vladichka4.png";
 import vladichka5 from "./vladichka5.png";
 
 export default {
+    action1,
     alisa1,
     gayane1,
     gayane2,

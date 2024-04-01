@@ -26,7 +26,7 @@
     <p v-else>У тебя пока нет карт</p>
 
     <div v-if="chosenCard" class="card-display" @click="chosenCard = null"> 
-      <card v-bind="chosenCard.card"/>
+      <card v-bind="chosenCard.card" :isUsable="true" @use-actions="useAction(chosenCard)"/>
       <button v-if="!isInTrading(chosenCard.id) && !user.is_trading" @click="trade">Выставить на обмен</button>
     </div>
 
@@ -82,6 +82,11 @@ export default {
     },
     isInTrading(id){
       return this.myLots.find(({collection_item_id}) => collection_item_id === id)
+    },
+    async useAction(item) {
+      await api.useCard(item.id)
+      await this.updateCollection()
+      this.chosenCard = false
     }
   },
   computed: {

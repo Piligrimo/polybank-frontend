@@ -23,7 +23,7 @@ const routes = [
   { path: '/trading/:id', component: TradeOffer,  meta: {shouldBeAuthed: true}  },
 ]
 
-const WIP = true
+const WIP = false
 
 export const router = createRouter({
   history: createWebHashHistory(),
@@ -33,6 +33,11 @@ export const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   if (WIP && to.path !== '/work-in-progress') {
     next('/work-in-progress')
+    return
+  }
+
+  if (to.path === '/work-in-progress' && !WIP) {
+    next('/')
     return
   }
 

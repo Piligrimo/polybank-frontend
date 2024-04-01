@@ -155,5 +155,13 @@ export const api = {
         } catch (e) {
             console.error(e)
         }
-    }
+    },
+    async useCard(id) {
+        try {
+            const { data } = await instance.delete('/use-card/'+id)
+            return data
+        } catch (e) {
+            console.error(e)
+        }
+    },
 }

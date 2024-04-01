@@ -5,9 +5,11 @@
       <div class="blick"></div>
       <div v-if="rarity === 'legendary'" class="circle shadow"></div>
     </div>
+    <div v-if="is_action" class="action-badge">Действие</div>
     <h3>{{ name }}</h3>
     <p class="description" v-html="description"/>
-    <slot />
+    
+    <button v-if="isUsable" @click="$emit('use-actions')">Применить</button>
   </div>
 </template>
 <script>
@@ -24,7 +26,8 @@ export default {
     picture: String,
     description: String,
     is_unique: Number,
-    is_action: Number
+    is_action: Number,
+    isUsable: Boolean
   },
   methods: {
     getPath(pic) {
@@ -156,6 +159,37 @@ h3 {
   left: 20%;
   width: 30%;
   height: 20%;
+}
+
+.action-badge{
+  position: relative;
+  top: -80px;
+  left: -15px;
+  z-index: 2;
+  height: 50px;
+  width: min-content;
+  padding: 15px 30px 15px 70px;
+  border-radius: 25px;
+  line-height: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #fff;
+  box-shadow: 5px 5px 21px -1px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 5px 5px 21px -1px rgba(0,0,0,0.5);
+  -moz-box-shadow: 5px 5px 21px -1px rgba(0,0,0,0.5);
+}
+
+.card._smol .action-badge{
+  padding: 5px 10px 5px 23px;
+  height: 17px;
+  font-size: 7px;
+  line-height: 7px;
+  top: -32px;
+  left: -5px;
+}
+
+.card._smol button {
+  display: none;
 }
 
 </style>
