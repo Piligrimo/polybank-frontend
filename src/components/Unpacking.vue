@@ -1,6 +1,6 @@
 <template>
   <div class="unpacking">
-    <img class="pack" :class="{shaking: isWaiting, open: !isWaiting}" :src="pack">
+    <img class="pack" @click="artificialDelay=false" :class="{shaking: isWaiting, open: !isWaiting}" :src="pack">
     <div class="animated-card-container" v-if="cards && cards.length && !isWaiting">
       <card 
         v-for="(card, i) in cards" 
