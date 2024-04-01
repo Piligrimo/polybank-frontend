@@ -9,6 +9,7 @@ import History from './pages/History.vue'
 import CardsCollection from './pages/CardsCollection.vue'
 import CardsTrading from './pages/CardsTrading.vue'
 import TradeOffer from './pages/TradeOffer.vue'
+import WorkInProgress from './pages/WorkInProgress.vue'
 
 const routes = [
   { path: '/', component: MainPage, meta: {shouldBeAuthed: true} },
@@ -17,9 +18,12 @@ const routes = [
   { path: '/transaction', component: TransactionPage, meta: {shouldBeAuthed: true} },
   { path: '/history', component: History, meta: {shouldBeAuthed: true} },
   { path: '/cards', component: CardsCollection, meta: {shouldBeAuthed: true}  },
+  { path: '/work-in-progress', component: WorkInProgress },
   { path: '/trading', component: CardsTrading,  meta: {shouldBeAuthed: true}  },
   { path: '/trading/:id', component: TradeOffer,  meta: {shouldBeAuthed: true}  },
 ]
+
+const WIP = true
 
 export const router = createRouter({
   history: createWebHashHistory(),
@@ -27,6 +31,11 @@ export const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
+  if (WIP && to.path !== '/work-in-progress') {
+    next('/work-in-progress')
+    return
+  }
+
   if(to.meta.shouldBeAuthed === undefined) {
     next()
     return
