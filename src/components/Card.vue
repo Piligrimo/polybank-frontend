@@ -9,7 +9,7 @@
     <h3>{{ name }}</h3>
     <p class="description" v-html="description"/>
     
-    <button v-if="isUsable" @click="$emit('use-actions')">Применить</button>
+    <button v-if="isUsable && is_action" @click="$emit('use-actions')">Применить</button>
   </div>
 </template>
 <script>
