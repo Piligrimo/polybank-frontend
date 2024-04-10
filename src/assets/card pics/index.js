@@ -25,6 +25,7 @@ import makin11 from "./makin11.png";
 import makin12 from "./makin12.png";
 import makin13 from "./makin13.png";
 import makin14 from "./makin14.png";
+import makin15 from "./makin15.png";
 import marina1 from "./marina1.png";
 import marina2 from "./marina2.png";
 import policule from "./policule.png";
@@ -43,6 +44,7 @@ import rudolf7 from "./rudolf7.png";
 import rudolf8 from "./rudolf8.png";
 import rudolf9 from "./rudolf9.png";
 import rudolf10 from "./rudolf10.png";
+import rudolf11 from "./rudolf11.png";
 import sonya1 from "./sonya1.png";
 import sonya2 from "./sonya2.png";
 import sonya3 from "./sonya3.png";
@@ -86,6 +88,7 @@ export default {
     makin12,
     makin13,
     makin14,
+    makin15,
     policule,
     marina1,
     marina2,
@@ -104,6 +107,7 @@ export default {
     rudolf8,
     rudolf9,
     rudolf10,
+    rudolf11,
     sonya1,
     sonya2,
     sonya3,
