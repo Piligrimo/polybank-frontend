@@ -1,19 +1,29 @@
 <template>
-  <div class="deck _centered">
-    <h2>Твоя колода</h2>
-    <button :disabled="!canBuy" @click="isUnpackingVisible = true">Открыть пачку (10 дичек)</button>
-    <br>
-    <router-link to="/trading">
-      <button>Обмен карточками</button>
-    </router-link>
-    <br>
-    <h4>у тебя {{ formatedDichki }}</h4>
-    <h4 v-if="cards && cards.length">у тебя в коллекции {{ cards.length }} карт из {{ cardsTotal }}</h4>
+  <div class="deck">
+    <div class="_centered">
+      <h2>Твоя колода</h2>
+      <button :disabled="!canBuy" @click="isUnpackingVisible = true">Открыть пачку (10 дичек)</button>
+      <br>
+      <router-link to="/trading">
+        <button>Обмен карточками</button>
+      </router-link>
+      <br>
+      <h4>у тебя {{ formatedDichki }}</h4>
+      <h4 v-if="cards && cards.length">у тебя в коллекции {{ cards.length }} карт из {{ cardsTotal }}</h4>
+    </div>
     <router-link class="link" to="/">Назад</router-link>
     <br>
+    Сортировать: 
+    <select v-model="sorting" class="sort-select"> 
+      <option value="default" >По умолчанию</option>
+      <option value="name" >По имени</option>
+      <option value="rarity" >По редкости</option>
+    </select>
+    <br>
+    <br>
     <p v-if="loading">Загрузка...</p>
-    <div class="card-grid" v-else-if="cards && cards.length">
-      <div class="card-container" v-for="item in cards" :key="item.id">
+    <div class="card-grid" v-else-if="sortedCards && sortedCards.length">
+      <div class="card-container" v-for="item in sortedCards" :key="item.id">
         <div class="counter badge" v-if="item.number > 1">x{{ item.number }}</div>
         <div class="in-trading badge" v-if="isInTrading(item.id)">на обмен</div>
         <card  
@@ -52,7 +62,8 @@ export default {
       myLots: [],
       cardsTotal: 0,
       chosenCard: null,
-      isUnpackingVisible: false
+      isUnpackingVisible: false,
+      sorting: 'default'
     }
   },
   created() {
@@ -96,6 +107,32 @@ export default {
     }),
     formatedDichki() {
       return pluralize(this.user.piski,['дичка', 'дички', 'дичек'])
+    },
+    sortedCards() {
+      switch (this.sorting) {
+        case 'name' : return this.sortedByName;
+        case 'rarity' : return this.sortedByRarity;
+        default : return this.cards
+      }
+    },
+    sortedByRarity() {
+      const rarities = ['trash', 'common', 'rare', 'epic', 'legendary']
+      return this.cards.slice().sort((a, b) => {
+        const i = rarities.indexOf(a.card.rarity)
+        const j = rarities.indexOf(b.card.rarity)
+        return  j - i
+      })
+    },
+    sortedByName() {
+      return this.cards.slice().sort((a, b) => {
+        if (a.card.name > b.card.name) {
+          return 1;
+        }
+        if (a.card.name < b.card.name) {
+          return -1;
+        }
+        return 0;
+      })
     },
     canBuy() {
       return this.user?.piski >= 10
@@ -165,5 +202,10 @@ h4 {
   height: 110vh;
   width: 100vw;
   background-color: #000b;
+}
+
+.sort-select {
+  padding: 4px 8px;
+
 }
 </style>
