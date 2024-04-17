@@ -26,6 +26,7 @@ import makin12 from "./makin12.png";
 import makin13 from "./makin13.png";
 import makin14 from "./makin14.png";
 import makin15 from "./makin15.png";
+import makin16 from "./makin16.png";
 import marina1 from "./marina1.png";
 import marina2 from "./marina2.png";
 import policule from "./policule.png";
@@ -89,6 +90,7 @@ export default {
     makin13,
     makin14,
     makin15,
+    makin16,
     policule,
     marina1,
     marina2,
